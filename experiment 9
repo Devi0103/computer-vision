@@ -1,0 +1,42 @@
+import cv2
+import matplotlib.pyplot as plt
+
+# Load the image
+image = cv2.imread('/content/image 2.PNG')  # Replace with your image file path
+
+# Check if the image is loaded
+if image is None:
+    print("Error: Image not found.")
+else:
+    # Rotate 90 degrees clockwise
+    rotated_clockwise = cv2.transpose(image)
+    rotated_clockwise = cv2.flip(rotated_clockwise, flipCode=1)
+
+    # Rotate 90 degrees counterclockwise
+    rotated_counterclockwise = cv2.transpose(image)
+    rotated_counterclockwise = cv2.flip(rotated_counterclockwise, flipCode=0)
+
+
+    # Display the images using matplotlib
+    plt.figure(figsize=(10, 6))
+
+    # Original Image
+    plt.subplot(1, 3, 1)
+    plt.imshow(image_rgb)
+    plt.title('Original Image')
+    plt.axis('off')
+
+    # Clockwise Rotation
+    plt.subplot(1, 3, 2)
+    plt.imshow(rotated_clockwise_rgb)
+    plt.title('Clockwise Rotation')
+    plt.axis('off')
+
+    # Counterclockwise Rotation
+    plt.subplot(1, 3, 3)
+    plt.imshow(rotated_counterclockwise_rgb)
+    plt.title('Counterclockwise Rotation')
+    plt.axis('off')
+
+    # Show the plot
+    plt.show()
