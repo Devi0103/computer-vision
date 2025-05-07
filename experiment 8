@@ -1,0 +1,44 @@
+import cv2
+import matplotlib.pyplot as plt
+
+# Load the image
+image = cv2.imread('/content/image 2.PNG')  # Replace with your image file path
+
+# Check if the image is loaded properly
+if image is None:
+    print("Error: Image not found.")
+else:
+    # Convert BGR to RGB (OpenCV loads images in BGR format, but matplotlib expects RGB)
+    image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+    # Scale down (make smaller)
+    smaller = cv2.resize(image, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
+    smaller_rgb = cv2.cvtColor(smaller, cv2.COLOR_BGR2RGB)
+
+    # Scale up (make bigger)
+    bigger = cv2.resize(image, None, fx=2.0, fy=2.0, interpolation=cv2.INTER_LINEAR)
+    bigger_rgb = cv2.cvtColor(bigger, cv2.COLOR_BGR2RGB)
+
+    # Display images using matplotlib
+    plt.figure(figsize=(130, 600))
+
+    # Original Image
+    plt.subplot(1, 3, 1)
+    plt.imshow(image_rgb)
+    plt.title('Original Image')
+    plt.axis('off')
+
+    # Smaller Image
+    plt.subplot(1, 3, 2)
+    plt.imshow(smaller_rgb)
+    plt.title('Smaller Image')
+    plt.axis('off')
+
+    # Bigger Image
+    plt.subplot(1, 3, 3)
+    plt.imshow(bigger_rgb)
+    plt.title('Bigger Image')
+    plt.axis('off')
+
+    # Show the plot
+    plt.show()
