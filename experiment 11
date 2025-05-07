@@ -1,0 +1,23 @@
+import cv2
+import numpy as np
+
+# Load the image
+img = cv2.imread('C:\\Users\\SAIL\\Pictures\\image 2.PNG')  # Replace with your image file
+
+# Define 3 points in the original image
+pts1 = np.float32([[50, 50], [200, 50], [50, 200]])
+
+# Define where those 3 points should go in the output image
+pts2 = np.float32([[10, 100], [200, 50], [100, 250]])
+
+# Get the affine transformation matrix
+M = cv2.getAffineTransform(pts1, pts2)
+
+# Apply the affine transformation
+result = cv2.warpAffine(img, M, (img.shape[1], img.shape[0]))
+
+# Show the result
+cv2.imshow('Original', img)
+cv2.imshow('Affine Transformed', result)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
