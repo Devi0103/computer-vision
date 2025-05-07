@@ -1,0 +1,20 @@
+import cv2
+import numpy as np
+
+img = cv2.imread('C:\\Users\\SAIL\\Pictures\\image 2.PNG')  # Replace with your image
+
+# Source points (from the original image)
+pts1 = np.float32([[50, 50], [200, 50], [50, 200], [200, 200]])
+
+# Destination points (desired perspective)
+pts2 = np.float32([[0, 0], [300, 0], [0, 300], [300, 300]])
+
+# Get perspective transform matrix
+matrix = cv2.getPerspectiveTransform(pts1, pts2)
+
+# Apply transformation
+result = cv2.warpPerspective(img, matrix, (300, 300))
+
+cv2.imshow("Warped Image", result)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
