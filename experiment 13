@@ -1,0 +1,32 @@
+import cv2
+import numpy as np
+
+# Load video
+cap = cv2.VideoCapture("C:\\Users\\SAIL\\Downloads\\videoplayback.webm")  # Replace with your video file
+
+# Define source points (4 points from the original frame)
+src_pts = np.float32([[100, 100], [400, 100], [100, 400], [400, 400]])
+
+# Define destination points (where you want those points to go)
+dst_pts = np.float32([[0, 0], [300, 0], [0, 300], [300, 300]])
+
+# Get perspective transform matrix
+matrix = cv2.getPerspectiveTransform(src_pts, dst_pts)
+
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    # Apply perspective warp
+    warped = cv2.warpPerspective(frame, matrix, (300, 300))
+
+    # Show original and warped
+    cv2.imshow("Original", frame)
+    cv2.imshow("Warped", warped)
+
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
