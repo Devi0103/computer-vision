@@ -1,0 +1,32 @@
+import cv2
+import numpy as np
+
+# Load video
+cap = cv2.VideoCapture("C:\\Users\\SAIL\\Downloads\\videoplayback.webm")  # Replace with your video file
+
+# Define 4 source points on the original frame (e.g., a rectangle or region)
+src_pts = np.float32([[100, 100], [400, 100], [100, 400], [400, 400]])
+
+# Define where you want those points to go (destination)
+dst_pts = np.float32([[0, 0], [300, 0], [0, 300], [300, 300]])
+
+# Compute the Homography matrix
+H, _ = cv2.findHomography(src_pts, dst_pts)
+
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    # Apply the homography transformation
+    warped = cv2.warpPerspective(frame, H, (300, 300))
+
+    # Show original and warped frames
+    cv2.imshow("Original", frame)
+    cv2.imshow("Homography Transformed", warped)
+
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
