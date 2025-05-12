@@ -1,0 +1,30 @@
+import cv2
+import numpy as np
+
+# Load the image in grayscale
+img = cv2.imread('C:\\Users\\SAIL\\Pictures\\i1.PNG', cv2.IMREAD_GRAYSCALE)
+
+# Check if image is loaded
+if img is None:
+    print("Error: Image not found.")
+else:
+    # Define Laplacian kernel with negative center
+    laplacian_kernel = np.array([[0,  1, 0],
+                                 [1, -4, 1],
+                                 [0,  1, 0]])
+
+    # Apply the Laplacian filter
+    laplacian = cv2.filter2D(img, cv2.CV_64F, laplacian_kernel)
+
+    # Convert to 8-bit and take absolute value
+    laplacian_abs = cv2.convertScaleAbs(laplacian)
+
+    # Sharpen the image by subtracting the Laplacian
+    sharpened = cv2.subtract(img, laplacian_abs)
+
+    # Show results
+    cv2.imshow('Original', img)
+    cv2.imshow('Laplacian (Edges)', laplacian_abs)
+    cv2.imshow('Sharpened Image', sharpened)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
