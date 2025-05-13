@@ -1,0 +1,19 @@
+import cv2
+import numpy as np
+
+# Load image in grayscale
+img = cv2.imread('C:\\Users\\SAIL\\Pictures\\i1.PNG', cv2.IMREAD_GRAYSCALE)
+
+# Step 1: Blur the image
+blurred = cv2.GaussianBlur(img, (5, 5), 0)
+
+# Step 2: Subtract the blurred from the original to get the mask
+mask = cv2.subtract(img, blurred)
+
+# Step 3: Add the mask back to the original image to get sharpened image
+sharpened = cv2.add(img, mask)
+
+# Display results
+cv2.imshow('Original Image', img)
+cv2.imshow('Blurred Image', blurred)
+cv2.imshow('Unsharp Mask (Edges)', mask)
