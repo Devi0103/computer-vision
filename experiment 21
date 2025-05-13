@@ -1,0 +1,23 @@
+import cv2
+import numpy as np
+
+# Load image in grayscale
+img = cv2.imread('C:\\Users\\SAIL\\Pictures\\i1.PNG', cv2.IMREAD_GRAYSCALE)
+
+# Define the Laplacian kernel with diagonal neighbors
+laplacian_kernel = np.array([[1, 1, 1],
+                             [1, -8, 1],
+                             [1, 1, 1]])
+
+# Apply the kernel using filter2D
+laplacian = cv2.filter2D(img, -1, laplacian_kernel)
+
+# Sharpened image = original - Laplacian
+sharpened = cv2.subtract(img, laplacian)
+
+# Show results
+cv2.imshow('Original', img)
+cv2.imshow('Laplacian', laplacian)
+cv2.imshow('Sharpened', sharpened)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
