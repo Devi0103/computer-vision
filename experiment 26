@@ -1,0 +1,21 @@
+import cv2
+
+# Load the original image
+image = cv2.imread('image.jpg')
+
+# Define the watermark text and its properties
+watermark_text = "© YourName"
+font = cv2.FONT_HERSHEY_SIMPLEX
+font_scale = 1
+font_color = (255, 255, 255)  # White color
+thickness = 2
+position = (image.shape[1] - 250, image.shape[0] - 20)  # Bottom-right
+
+# Add the text watermark
+cv2.putText(image, watermark_text, position, font, font_scale, font_color, thickness, cv2.LINE_AA)
+
+# Display and save the result
+cv2.imshow('Watermarked Image', image)
+cv2.imwrite('watermarked_image.jpg', image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
