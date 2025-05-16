@@ -1,0 +1,24 @@
+import cv2
+import numpy as np
+
+# Load the image
+img = cv2.imread('image.jpg', cv2.IMREAD_GRAYSCALE)
+
+# Apply Sobel operator in X and Y direction
+sobelX = cv2.Sobel(img, cv2.CV_64F, 1, 0, ksize=3)
+sobelY = cv2.Sobel(img, cv2.CV_64F, 0, 1, ksize=3)
+
+# Compute gradient magnitude (edge strength)
+gradient = cv2.magnitude(sobelX, sobelY)
+gradient = cv2.convertScaleAbs(gradient)  # Convert to 8-bit
+
+# Sharpening: Original + edge (gradient)
+sharpened = cv2.addWeighted(img, 1.0, gradient, 1.0, 0)
+
+# Display the images
+cv2.imshow('Original Image', img)
+cv2.imshow('Gradient Edge', gradient)
+cv2.imshow('Sharpened Image', sharpened)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
