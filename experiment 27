@@ -1,0 +1,20 @@
+import cv2
+
+# Load the original image
+image = cv2.imread('C:\\Users\\SAIL\\Downloads\\my pic.png')
+
+# --------- Step 1: Crop a Region from the Image ---------
+# Let's say we want to crop a 100x100 region from (x=50, y=50)
+x, y, w, h = 50, 50, 100, 100
+cropped = image[y:y+h, x:x+w]
+
+# --------- Step 2: Define a New Location to Paste the Crop ---------
+# For example, paste it at (x=200, y=200)
+paste_x, paste_y = 200, 200
+image[paste_y:paste_y+h, paste_x:paste_x+w] = cropped
+
+# --------- Step 3: Show and Save the Result ---------
+cv2.imshow('Modified Image', image)
+cv2.imwrite('cropped_pasted.jpg', image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
