@@ -1,0 +1,25 @@
+import cv2
+import numpy as np
+
+# Load the image in grayscale mode
+img = cv2.imread("C:\\Users\\SAIL\\Downloads\\my pic.png", cv2.IMREAD_GRAYSCALE)
+
+if img is None:
+    print("Error: Image not found. Make sure 'image.jpg' is in the same directory.")
+    exit()
+
+# Define Laplacian kernel for edge detection
+kernel = np.array([[0, -1, 0],
+                   [-1, 4, -1],
+                   [0, -1, 0]])
+
+# Apply the convolution using OpenCV
+boundary = cv2.filter2D(img, -1, kernel)
+
+# Show original and boundary images
+cv2.imshow("Original Image", img)
+cv2.imshow("Image Boundary", boundary)
+
+# Wait until a key is pressed and close windows
+cv2.waitKey(0)
+cv2.destroyAllWindows()
