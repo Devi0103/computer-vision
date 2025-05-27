@@ -1,0 +1,18 @@
+import cv2
+import numpy as np
+
+# Load image in grayscale
+img = cv2.imread('image.jpg', 0)
+
+# Create a structuring element (kernel)
+kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (15, 15))
+
+# Apply Top Hat operation
+tophat = cv2.morphologyEx(img, cv2.MORPH_TOPHAT, kernel)
+
+# Show results
+cv2.imshow('Original Image', img)
+cv2.imshow('Top Hat Result', tophat)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
