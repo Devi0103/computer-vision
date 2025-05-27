@@ -1,0 +1,29 @@
+import cv2
+
+watch_img = cv2.imread('C:\\Users\\SAIL\\Downloads\\www.jpg', 0)  # Grayscale
+# Load scene image (where you want to detect the watch)
+scene_img = cv2.imread('C:\\Users\\SAIL\\Pictures\\watch.PNG', 0)
+
+# Create ORB detector
+orb = cv2.ORB_create()
+
+# Find keypoints and descriptors
+kp1, des1 = orb.detectAndCompute(watch_img, None)
+kp2, des2 = orb.detectAndCompute(scene_img, None)
+
+# Create a Brute Force Matcher object with Hamming distance
+bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
+
+# Match descriptors
+matches = bf.match(des1, des2)
+
+# Sort them by distance (lower distance = better match)
+matches = sorted(matches, key=lambda x: x.distance)
+
+# Draw first 30 matches
+result_img = cv2.drawMatches(watch_img, kp1, scene_img, kp2, matches[:30], None, flags=2)
+
+# Display the output
+cv2.imshow('Watch Detection Result', result_img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
