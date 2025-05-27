@@ -1,0 +1,18 @@
+import cv2
+import numpy as np
+
+# Load the image in grayscale
+img = cv2.imread('image.jpg', 0)
+
+# Create a structuring element (kernel)
+kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5))
+
+# Apply Morphological Gradient
+gradient = cv2.morphologyEx(img, cv2.MORPH_GRADIENT, kernel)
+
+# Display the original and result images
+cv2.imshow('Original Image', img)
+cv2.imshow('Morphological Gradient', gradient)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
